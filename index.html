@@ -12,19 +12,45 @@ float: left;
 <script src="jquery-1.10.2.js"></script>
 </head>
 <body>
-<div id="images"></div>
-<script>
+<div id="landmark-1" data-landmark-id="1">
+	<form>
+		<label for="email">
+			<b>Email</b>
+			<input type="email" id="email" name="email">
+		</label>
+
+		<label for="comment">
+			<b>Comment</b>
+			<textarea id="comment" name="comment" cols="30" rows="10"></textarea>
+		</label>
+		
+		<input type="submit" value="Save">
+	</form>
+</div>
+    <script>
     
-    $.getJSON( "http://www.codeigniter.in/projects/api/response.php?format=json&num=2", function( json ) {
-        for (var i = 0; i < json.posts.length; i++) { 
-$('#images').append('<p> ID: ' + json.posts[i].post.recipe_id + '</p>');
-$('#images').append('<p> Name: ' + json.posts[i].post.recipe_name + '</p>');
-$('#images').append('<p> Poster: ' + json.posts[i].post.recipe_poster + '</p>');
-$('#images').append('<p> Quick Info: ' + json.posts[i].post.recipe_quick_info + '</p>');
-$('#images').append('<p> Link: ' + json.posts[i].post.recipe_link + '</p>');
-        }
+    $('form').submit(function(){
+	var landmarkID = $(this).parent().attr('data-landmark-id');
+	var postData = $(this).serialize();
+	
+	$.ajax({
+		type: 'POST',
+		data: postData+'&amp;lid='+landmarkID,
+		url: 'http://www.codeigniter.in/projects/api/save.php',
+		success: function(data){
+			console.log(data);
+			alert('Your comment was successfully added');
+		},
+		error: function(){
+			console.log(data);
+			alert('There was an error adding your comment');
+		}
+	});
+	
+	return false;
 });
 
 </script>
 </body>
+
 </html>
