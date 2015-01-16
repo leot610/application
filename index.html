@@ -1,56 +1,52 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Application</title>
-<style>
-img {
-height: 100px;
-float: left;
-}
-</style>
-<script src="jquery-1.10.2.js"></script>
-</head>
-<body>
-<div id="landmark-1" data-landmark-id="1">
-	<form>
-		<label for="email">
-			<b>Email</b>
-			<input type="email" id="email" name="email">
-		</label>
-
-		<label for="comment">
-			<b>Comment</b>
-			<textarea id="comment" name="comment" cols="30" rows="10"></textarea>
-		</label>
-		
-		<input type="submit" value="Save">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>Chat</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+        <script type="text/javascript" src="js/jquery-1.10.2.js"></script>   
+    </head>
+    <body>
+        <div id="chat"></div>
+        <form>
+            <input type="message" id="message" name="message">
+            <input type="submit" value="Send">
 	</form>
-</div>
-    <script>
-    
-    $('form').submit(function(){
-	var landmarkID = $(this).parent().attr('data-landmark-id');
-	var postData = $(this).serialize();
-	
-	$.ajax({
-		type: 'POST',
-		data: postData+'&amp;lid='+landmarkID,
-		url: 'http://www.codeigniter.in/projects/api/save.php',
-		success: function(data){
-			console.log(data);
-			alert('Your comment was successfully added');
-		},
-		error: function(){
-			console.log(data);
-			alert('There was an error adding your comment');
-		}
-	});
-	
-	return false;
-});
+        <script>
+            chat();
+            $('form').submit(function(){
+                var landmarkID = $(this).parent().attr('data-landmark-id');
+                var postData = $(this).serialize();
+                $.ajax({
+                        type: 'POST',
+                        data: postData+'&amp;lid='+landmarkID,
+                        url: 'http://www.codeigniter.in/projects/chat/save.php',
+                        success: function(data){
+                                console.log(data);
+                                //alert('Your comment was successfully added');
+                                $("#message").val('');
+                                chat();
+                        },
+                        error: function(){
+                                console.log(data);
+                                alert('There was an error adding your comment');
+                        }
+                });
+                return false;
+            });
+            function chat()
+            {
+                $( "#chat" ).empty();
+                $.getJSON( "http://www.codeigniter.in/projects/chat/response.php?format=json&num=100", function( json ) {
+                                        for (var i = 0; i < json.posts.length; i++) 
+                                        { 
+                                            $('#chat').append('<p> User: ' + json.posts[i].post.message + '</p>');
+                                        }
+                }); 
+            }
 
 </script>
-</body>
+    </body>
 
 </html>
