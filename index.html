@@ -50,7 +50,7 @@
                 $.getJSON( "http://www.codeigniter.in/projects/chat/response.php?format=json&num=10000000", function( json ) {
                                         for (var i = 0; i < json.posts.length; i++) 
                                         { 
-                                            $('#chat').append('<p> User: ' + json.posts[i].post.message + '</p>');
+                                            $('#chat').append('<p> <span class="user">User</span> ' + json.posts[i].post.message + '</p>');
                                         }
                                         $('#chat').append('<p id="counter" style="display:none;">' + json.posts.length + '</p>');
                 });     
