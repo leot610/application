@@ -1,4 +1,15 @@
-body
+.button 
 {
-    background: #69B2DD;
+    background: url("../img/send.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: medium none;
+    height: 25px;
+    width: 25px;
 }
+#refresh
+{
+    width: 24px;
+    height: 24px;
+    margin-bottom: -8px;
+    cursor: pointer;
+}
+

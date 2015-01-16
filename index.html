@@ -8,13 +8,26 @@
         <script type="text/javascript" src="js/jquery-1.10.2.js"></script>   
     </head>
     <body>
-        <div id="chat"></div>
         <form>
-            <input type="message" id="message" name="message">
-            <input type="submit" value="Send">
-	</form>
+                <input type="message" id="message" name="message">
+                <input type="submit" value="" class="button">
+                    <img src="img/refresh.png" id="refresh"></img>
+        </form>
+        <div id="chat"></div>
         <script>
             chat();
+            window.setInterval(function(){
+                var current_count = $("#counter").text();
+                $.getJSON( "http://www.codeigniter.in/projects/chat/response.php?format=json&num=10000000", function( json ) {
+                    if(json.posts.length > current_count)
+                    {
+                        chat();
+                    }
+                });         
+            }, 500);
+            $('#refresh').click(function(){
+                chat();
+            });
             $('form').submit(function(){
                 var landmarkID = $(this).parent().attr('data-landmark-id');
                 var postData = $(this).serialize();
@@ -38,12 +51,14 @@
             function chat()
             {
                 $( "#chat" ).empty();
-                $.getJSON( "http://www.codeigniter.in/projects/chat/response.php?format=json&num=100", function( json ) {
+                $.getJSON( "http://www.codeigniter.in/projects/chat/response.php?format=json&num=10", function( json ) {
                                         for (var i = 0; i < json.posts.length; i++) 
                                         { 
                                             $('#chat').append('<p> User: ' + json.posts[i].post.message + '</p>');
                                         }
-                }); 
+                                        $('#chat').append('<p id="counter" style="display:none;">' + json.posts.length + '</p>');
+                });     
+                
             }
 
 </script>
