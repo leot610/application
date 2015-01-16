@@ -11,6 +11,7 @@
         <form>
                 <input type="message" id="message" name="message">
                 <input type="submit" value="" class="button">
+                <img src="img/refresh.png" id="refresh"></img>
         </form>
         <div id="chat"></div>
         <script>
@@ -24,6 +25,9 @@
                     }
                 });         
             }, 500);
+            $('#refresh').click(function(){
+                chat();
+            });
             $('form').submit(function(){
                 var landmarkID = $(this).parent().attr('data-landmark-id');
                 var postData = $(this).serialize();
