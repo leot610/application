@@ -3,65 +3,55 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <title>Chat</title>
+        <title>Body Building</title>
         <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+        <link rel="stylesheet" href="css/jquery-ui.css" />
         <script type="text/javascript" src="js/jquery-1.10.2.js"></script>   
+        <script src="js/jquery-ui.js"></script>
+        <script>
+            $(function() {
+                $( "#accordion" ).accordion({
+                    collapsible: true,
+                    active: false
+                });
+            });
+        </script>
     </head>
     <body>
-        <form>
-                <input type="message" id="message" name="message">
-                <input type="submit" value="" class="button">
-                <img src="img/refresh.png" id="refresh"></img>
-        </form>
-        <div id="chat"></div>
-        <script>
-            chat();
-            window.setInterval(function(){
-                var current_count = $("#counter").text();
-                $.getJSON( "http://www.codeigniter.in/projects/chat/response.php?format=json&num=10000000", function( json ) {
-                    if(json.posts.length > current_count)
-                    {
-                        chat();
-                    }
-                });         
-            }, 500);
-            $('#refresh').click(function(){
-                chat();
-            });
-            $('form').submit(function(){
-                var landmarkID = $(this).parent().attr('data-landmark-id');
-                var postData = $(this).serialize();
-                $.ajax({
-                        type: 'POST',
-                        data: postData+'&amp;lid='+landmarkID,
-                        url: 'http://www.codeigniter.in/projects/chat/save.php',
-                        success: function(data){
-                                console.log(data);
-                                //alert('Your comment was successfully added');
-                                $("#message").val('');
-                                chat();
-                        },
-                        error: function(){
-                                console.log(data);
-                                alert('There was an error adding your comment');
-                        }
-                });
-                return false;
-            });
-            function chat()
-            {
-                $( "#chat" ).empty();
-                $.getJSON( "http://www.codeigniter.in/projects/chat/response.php?format=json&num=10000000", function( json ) {
-                                        for (var i = 0; i < json.posts.length; i++) 
-                                        { 
-                                            $('#chat').append('<p> <span class="user">User</span> ' + json.posts[i].post.message + '</p>');
-                                        }
-                                        $('#chat').append('<p id="counter" style="display:none;">' + json.posts.length + '</p>');
-                });     
-                
-            }
-
-</script>
+        <div id="header">
+            <h1>
+                Body Building
+            </h1>
+        </div>
+        <div id="accordion">
+            <h3>Food</h3>
+            <div>
+                <p><span class="time">09.00 AM</span> - Banana - 2 Nos</p>
+                <p><span class="time">11.00 AM</span> - Breakfast</p>
+                <p><span class="time">01.00 PM</span> - Lunch</p>
+                <p><span class="time">04.00 PM</span> - Banana - 2 Nos</p>
+                <p><span class="time">07.00 PM</span> - Pre-Workout Meal</p>
+                <p><span class="time">09.45 PM</span> - Egg - 2 Nos</p>
+                <p><span class="time">10.15 PM</span> - Dinner</p>
+            </div>
+            <h3>Workout</h3>
+            <div>
+                <p><span class="time">08.00 PM</span> - Start of Workout</p>
+                <p><span class="time">09.30 PM</span> - End of Workout</p>
+            </div>
+            <h3>Abs</h3>
+            <div>
+                <p>Crunches - 3 sets of 20 each</p>
+                <p>Reverse Crunches - 3 sets of 20 each</p>
+                <p>Toe Touches - 3 sets of 20 each</p>
+                <p>Plank - 3 sets of 30 sec each</p>
+            </div>
+            <h3>Rest</h3>
+            <div>
+                <p><span class="time">11.30 PM</span> - Sleep</p>
+                <p><span class="time">08.30 PM</span> - Wakeup</p>
+            </div>
+        </div>
     </body>
 
 </html>

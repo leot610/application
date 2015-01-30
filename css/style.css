@@ -1,21 +1,14 @@
-.button 
+body
 {
-    background: url("../img/send.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: medium none;
-    height: 25px;
-    width: 25px;
+    margin: 0 auto;
 }
-#refresh
+#header h1
 {
-    width: 24px;
-    height: 24px;
-    margin-bottom: -8px;
-    cursor: pointer;
+    text-align: center;
+    color: #3B5998;
+    font-family: cursive;
 }
-.user
+.time
 {
-    color: #ff0000;
-    font-family: arial;
-    font-size: 12px;
-    font-weight: bold;
+    color: red;
 }
