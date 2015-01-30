@@ -5,10 +5,10 @@
         id        = "com.leo.leo"
         version   = "1.0">
 
-    <name>Leo</name>
+    <name>Body Building</name>
 
     <description>
-        Swiping Slider
+        Body Building
     </description>
 
     <author href="http://www.codeigniter.in" email="leo@codeigniter.in">
